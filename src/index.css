@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: clip;
+  }
+  body {
+    @apply bg-black text-zinc-300 font-sans antialiased;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: rgba(74, 222, 128, 0.3);
+    color: #fff;
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #000;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1f2a22;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #22c55e;
+  }
+}
+
+@layer components {
+  /* CRT scanlines + vignette over the whole page */
+  .crt::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.022) 0,
+      rgba(255, 255, 255, 0.022) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  }
+  .crt::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 22px rgba(74, 222, 128, 0.55);
+  }
+  .panel {
+    @apply rounded-xl border border-white/10 bg-ink-800/80 backdrop-blur-sm;
+  }
+  .btn-term {
+    @apply relative inline-flex items-center gap-2 rounded-md border border-term-500 bg-term-500/10 px-5 py-3 font-mono text-sm font-medium text-term-300 transition-all duration-300 hover:bg-term-500 hover:text-black hover:shadow-[0_0_35px_-4px_rgba(74,222,128,0.8)];
+  }
+  .btn-outline {
+    @apply inline-flex items-center gap-2 rounded-md border border-white/15 px-5 py-3 font-mono text-sm font-medium text-zinc-200 transition-all duration-300 hover:border-term-400 hover:text-term-300;
+  }
+  .section {
+    @apply relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:py-28;
+  }
+}
